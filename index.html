@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="theme-color" content="#1e1b4b"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <title>Mahesh Web App Solution — Liyanage Electronics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config={theme:{extend:{
+      fontFamily:{sans:['Inter','Noto Sans Sinhala','system-ui','sans-serif'],mono:['JetBrains Mono','monospace']},
+      colors:{brand:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81',950:'#1e1b4b'}},
+      animation:{
+        'fade-in':'fadeIn .45s ease-out both',
+        'fade-in-fast':'fadeIn .25s ease-out both',
+        'slide-up':'slideUp .4s cubic-bezier(.16,1,.3,1) both',
+        'slide-down':'slideDown .35s cubic-bezier(.16,1,.3,1) both',
+        'slide-left':'slideLeft .4s cubic-bezier(.16,1,.3,1) both',
+        'scale-in':'scaleIn .35s cubic-bezier(.16,1,.3,1) both',
+        'shimmer':'shimmer 2s infinite linear',
+        'overlay':'overlayIn .2s ease-out both',
+        'modal':'modalIn .35s cubic-bezier(.16,1,.3,1) both',
+        'toast':'toastIn .5s cubic-bezier(.16,1,.3,1) both',
+        'toast-bar':'shrinkW 4s linear both',
+        'pulse-slow':'pulseSlow 2.5s ease-in-out infinite',
+        'pulse-dot':'pulseDot 1.8s ease-in-out infinite',
+        'cart-pop':'cartPop .3s cubic-bezier(.16,1,.3,1) both',
+        'count-up':'countUp .6s cubic-bezier(.16,1,.3,1) both',
+        'bounce-subtle':'bounceSub 2s ease-in-out infinite',
+        'glow':'glow 2s ease-in-out infinite alternate',
+        'float':'floatAnim 3s ease-in-out infinite',
+        'gradient':'gradientBG 6s ease infinite',
+      },
+      keyframes:{
+        fadeIn:{'0%':{opacity:0,transform:'translateY(6px)'},'100%':{opacity:1,transform:'translateY(0)'}},
+        slideUp:{'0%':{opacity:0,transform:'translateY(24px)'},'100%':{opacity:1,transform:'translateY(0)'}},
+        slideDown:{'0%':{opacity:0,transform:'translateY(-16px)'},'100%':{opacity:1,transform:'translateY(0)'}},
+        slideLeft:{'0%':{opacity:0,transform:'translateX(20px)'},'100%':{opacity:1,transform:'translateX(0)'}},
+        scaleIn:{'0%':{opacity:0,transform:'scale(.92)'},'100%':{opacity:1,transform:'scale(1)'}},
+        shimmer:{'0%':{backgroundPosition:'-200% 0'},'100%':{backgroundPosition:'200% 0'}},
+        overlayIn:{'0%':{opacity:0},'100%':{opacity:1}},
+        modalIn:{'0%':{opacity:0,transform:'scale(.92) translateY(16px)'},'100%':{opacity:1,transform:'scale(1) translateY(0)'}},
+        toastIn:{'0%':{opacity:0,transform:'translateX(100%) scale(.9)'},'100%':{opacity:1,transform:'translateX(0) scale(1)'}},
+        shrinkW:{'0%':{width:'100%'},'100%':{width:'0%'}},
+        pulseSlow:{'0%,100%':{opacity:1},'50%':{opacity:.55}},
+        pulseDot:{'0%,100%':{transform:'scale(1)',opacity:1},'50%':{transform:'scale(1.6)',opacity:.4}},
+        cartPop:{'0%':{opacity:0,transform:'scale(.88) translateY(-10px)'},'100%':{opacity:1,transform:'scale(1) translateY(0)'}},
+        countUp:{'0%':{opacity:0,transform:'translateY(10px) scale(.9)'},'100%':{opacity:1,transform:'translateY(0) scale(1)'}},
+        bounceSub:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-3px)'}},
+        glow:{'0%':{boxShadow:'0 0 5px rgba(99,102,241,.2)'},'100%':{boxShadow:'0 0 20px rgba(99,102,241,.4)'}},
+        floatAnim:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-8px)'}},
+        gradientBG:{'0%,100%':{backgroundPosition:'0% 50%'},'50%':{backgroundPosition:'100% 50%'}},
+      }
+    }}}
+  </script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+    body{background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 50%,#f1f5f9 100%);min-height:100vh}
+    ::-webkit-scrollbar{width:5px;height:5px}
+    ::-webkit-scrollbar-track{background:#f1f5f9}
+    ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+    .shimmer-bg{background:linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%);background-size:200% 100%}
+    .rh{transition:all .15s ease}.rh:hover{background:rgba(99,102,241,.04);box-shadow:inset 3px 0 0 0 #6366f1}
+    select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+    @media print{body *{visibility:hidden!important}.print-area,.print-area *{visibility:visible!important}.print-area{position:fixed!important;left:0!important;top:0!important;width:80mm!important;padding:4mm!important;background:#fff!important;font-family:'JetBrains Mono',monospace!important;font-size:11px!important;color:#000!important}.no-print{display:none!important}}
+    @media(max-width:640px){.mobile-full{width:100%!important;max-width:100%!important;border-radius:0!important}}
+    .glass{background:rgba(255,255,255,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .input-ring{transition:all .2s}.input-ring:focus{outline:none;box-shadow:0 0 0 3px rgba(99,102,241,.15);border-color:#818cf8}
+    .card-shine{position:relative;overflow:hidden}.card-shine::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);transform:rotate(45deg);transition:all .6s}.card-shine:hover::after{left:100%}
+    .gradient-border{position:relative;background:white;border-radius:1rem}.gradient-border::before{content:'';position:absolute;inset:-1px;border-radius:1rem;padding:1px;background:linear-gradient(135deg,#818cf8,#6366f1,#4f46e5);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.5;transition:opacity .3s}.gradient-border:hover::before{opacity:1}
+  </style>
+</head>
+<body class="font-sans antialiased">
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useMemo,useCallback,useRef}=React;
+
+const API_URL='YOUR_DEPLOYED_APPS_SCRIPT_URL_HERE';
+const LS_KEY='mahesh_app_data_v6';
+const LS_TS_KEY='mahesh_app_ts_v6';
+
+const saveToLS=(data)=>{try{localStorage.setItem(LS_KEY,JSON.stringify(data));localStorage.setItem(LS_TS_KEY,new Date().toISOString())}catch(e){}};
+const loadFromLS=()=>{try{const d=localStorage.getItem(LS_KEY);return d?JSON.parse(d):null}catch(e){return null}};
+
+const MOCK={
+  products:[
+    {ProductID:'MOB001',ProductName:'Samsung Galaxy S24 Ultra',Category:'Mobile Phones',Brand:'Samsung',Model:'S24 Ultra',UnitPrice:189900,CostPrice:152000,StockQty:15,MinStockLevel:5,WarrantyMonths:12,Supplier:'Samsung Sri Lanka',DateAdded:'2024-12-01T00:00:00.000Z',Status:'Active'},
+    {ProductID:'MOB002',ProductName:'iPhone 15 Pro Max',Category:'Mobile Phones',Brand:'Apple',Model:'15 Pro Max',UnitPrice:249900,CostPrice:210000,StockQty:8,MinStockLevel:3,WarrantyMonths:12,Supplier:'Apple Authorized',DateAdded:'2024-12-05T00:00:00.000Z',Status:'Active'},
+    {ProductID:'MOB003',ProductName:'Samsung Galaxy A15',Category:'Mobile Phones',Brand:'Samsung',Model:'A15',UnitPrice:42900,CostPrice:33000,StockQty:25,MinStockLevel:10,WarrantyMonths:12,Supplier:'Samsung Sri Lanka',DateAdded:'2024-12-10T00:00:00.000Z',Status:'Active'},
+    {ProductID:'MOB004',ProductName:'Xiaomi Redmi Note 13',Category:'Mobile Phones',Brand:'Xiaomi',Model:'Redmi Note 13',UnitPrice:52900,CostPrice:40000,StockQty:20,MinStockLevel:8,WarrantyMonths:12,Supplier:'Xiaomi Distributors',DateAdded:'2025-01-02T00:00:00.000Z',Status:'Active'},
+    {ProductID:'APP001',ProductName:'LG 55" OLED Smart TV',Category:'Appliances',Brand:'LG',Model:'OLED55C3',UnitPrice:329900,CostPrice:275000,StockQty:4,MinStockLevel:2,WarrantyMonths:24,Supplier:'LG Electronics Lanka',DateAdded:'2024-11-15T00:00:00.000Z',Status:'Active'},
+    {ProductID:'APP002',ProductName:'Samsung 65" Crystal UHD TV',Category:'Appliances',Brand:'Samsung',Model:'CU7000',UnitPrice:219900,CostPrice:178000,StockQty:6,MinStockLevel:2,WarrantyMonths:24,Supplier:'Samsung Sri Lanka',DateAdded:'2024-11-20T00:00:00.000Z',Status:'Active'},
+    {ProductID:'APP003',ProductName:'LG 10kg Front Load Washer',Category:'Appliances',Brand:'LG',Model:'FV1410S5W',UnitPrice:159900,CostPrice:128000,StockQty:5,MinStockLevel:2,WarrantyMonths:36,Supplier:'LG Electronics Lanka',DateAdded:'2025-01-05T00:00:00.000Z',Status:'Active'},
+    {ProductID:'LAP001',ProductName:'Dell Inspiron 15',Category:'Laptops',Brand:'Dell',Model:'Inspiron 3520',UnitPrice:174900,CostPrice:142000,StockQty:10,MinStockLevel:3,WarrantyMonths:12,Supplier:'Dell Technologies',DateAdded:'2024-12-20T00:00:00.000Z',Status:'Active'},
+    {ProductID:'LAP002',ProductName:'HP Pavilion x360',Category:'Laptops',Brand:'HP',Model:'Pavilion x360 14',UnitPrice:189900,CostPrice:155000,StockQty:7,MinStockLevel:3,WarrantyMonths:12,Supplier:'HP Lanka',DateAdded:'2025-01-10T00:00:00.000Z',Status:'Active'},
+    {ProductID:'LAP003',ProductName:'Lenovo IdeaPad Slim 3',Category:'Laptops',Brand:'Lenovo',Model:'IdeaPad Slim 3',UnitPrice:134900,CostPrice:108000,StockQty:12,MinStockLevel:4,WarrantyMonths:12,Supplier:'Lenovo Distributors',DateAdded:'2025-01-12T00:00:00.000Z',Status:'Active'},
+    {ProductID:'ACC001',ProductName:'Samsung Galaxy Buds FE',Category:'Accessories',Brand:'Samsung',Model:'Buds FE',UnitPrice:18900,CostPrice:14000,StockQty:30,MinStockLevel:10,WarrantyMonths:6,Supplier:'Samsung Sri Lanka',DateAdded:'2025-01-15T00:00:00.000Z',Status:'Active'},
+    {ProductID:'ACC002',ProductName:'Anker PowerCore 20000mAh',Category:'Accessories',Brand:'Anker',Model:'PowerCore 20K',UnitPrice:8900,CostPrice:5800,StockQty:40,MinStockLevel:15,WarrantyMonths:18,Supplier:'Anker Distributors',DateAdded:'2025-01-18T00:00:00.000Z',Status:'Active'},
+    {ProductID:'ACC003',ProductName:'Logitech MX Master 3S',Category:'Accessories',Brand:'Logitech',Model:'MX Master 3S',UnitPrice:21900,CostPrice:16500,StockQty:3,MinStockLevel:5,WarrantyMonths:24,Supplier:'Logitech Lanka',DateAdded:'2025-01-20T00:00:00.000Z',Status:'Low Stock'},
+    {ProductID:'APP004',ProductName:'Philips Air Fryer XXL',Category:'Appliances',Brand:'Philips',Model:'HD9270',UnitPrice:49900,CostPrice:38000,StockQty:2,MinStockLevel:5,WarrantyMonths:24,Supplier:'Philips Lanka',DateAdded:'2025-02-01T00:00:00.000Z',Status:'Low Stock'},
+  ],
+  sales:[
+    {SaleID:'S0001',Date:'2025-05-20T09:30:00.000Z',ProductID:'MOB001',ProductName:'Samsung Galaxy S24 Ultra',Category:'Mobile Phones',Qty:1,UnitPrice:189900,DiscountPct:0,TotalAmount:189900,CustomerName:'Kamal Perera',CustomerPhone:'0771234567',PaymentMethod:'Card',SoldBy:'Nimal',ReturnStatus:''},
+    {SaleID:'S0001',Date:'2025-05-20T09:30:00.000Z',ProductID:'ACC002',ProductName:'Anker PowerCore 20000mAh',Category:'Accessories',Qty:2,UnitPrice:8900,DiscountPct:0,TotalAmount:17800,CustomerName:'Kamal Perera',CustomerPhone:'0771234567',PaymentMethod:'Card',SoldBy:'Nimal',ReturnStatus:''},
+    {SaleID:'S0002',Date:'2025-05-20T11:15:00.000Z',ProductID:'APP001',ProductName:'LG 55" OLED Smart TV',Category:'Appliances',Qty:1,UnitPrice:329900,DiscountPct:5,TotalAmount:313405,CustomerName:'Saman Silva',CustomerPhone:'0712345678',PaymentMethod:'Card',SoldBy:'Sunil',ReturnStatus:''},
+    {SaleID:'S0003',Date:'2025-05-21T10:00:00.000Z',ProductID:'MOB003',ProductName:'Samsung Galaxy A15',Category:'Mobile Phones',Qty:2,UnitPrice:42900,DiscountPct:0,TotalAmount:85800,CustomerName:'Ruwan Fernando',CustomerPhone:'0761122334',PaymentMethod:'Cash',SoldBy:'Nimal',ReturnStatus:'Partial Return'},
+    {SaleID:'S0004',Date:'2025-05-21T14:30:00.000Z',ProductID:'LAP001',ProductName:'Dell Inspiron 15',Category:'Laptops',Qty:1,UnitPrice:174900,DiscountPct:0,TotalAmount:174900,CustomerName:'Dilshan Jayawardena',CustomerPhone:'0779988776',PaymentMethod:'Card',SoldBy:'Sunil',ReturnStatus:''},
+    {SaleID:'S0005',Date:'2025-05-22T09:00:00.000Z',ProductID:'MOB002',ProductName:'iPhone 15 Pro Max',Category:'Mobile Phones',Qty:1,UnitPrice:249900,DiscountPct:3,TotalAmount:242403,CustomerName:'Nadeesha Kumari',CustomerPhone:'0714455667',PaymentMethod:'Card',SoldBy:'Nimal',ReturnStatus:''},
+    {SaleID:'S0005',Date:'2025-05-22T09:00:00.000Z',ProductID:'ACC001',ProductName:'Samsung Galaxy Buds FE',Category:'Accessories',Qty:1,UnitPrice:18900,DiscountPct:3,TotalAmount:18333,CustomerName:'Nadeesha Kumari',CustomerPhone:'0714455667',PaymentMethod:'Card',SoldBy:'Nimal',ReturnStatus:''},
+    {SaleID:'S0006',Date:'2025-05-22T15:45:00.000Z',ProductID:'APP002',ProductName:'Samsung 65" Crystal UHD TV',Category:'Appliances',Qty:1,UnitPrice:219900,DiscountPct:0,TotalAmount:219900,CustomerName:'Chaminda Bandara',CustomerPhone:'0723344556',PaymentMethod:'Cash',SoldBy:'Sunil',ReturnStatus:''},
+    {SaleID:'S0007',Date:'2025-05-23T10:20:00.000Z',ProductID:'LAP003',ProductName:'Lenovo IdeaPad Slim 3',Category:'Laptops',Qty:1,UnitPrice:134900,DiscountPct:0,TotalAmount:134900,CustomerName:'Amaya Ratnayake',CustomerPhone:'0775566778',PaymentMethod:'Cash',SoldBy:'Nimal',ReturnStatus:''},
+    {SaleID:'S0008',Date:'2025-05-23T13:00:00.000Z',ProductID:'MOB004',ProductName:'Xiaomi Redmi Note 13',Category:'Mobile Phones',Qty:1,UnitPrice:52900,DiscountPct:0,TotalAmount:52900,CustomerName:'Pradeep Wijesinghe',CustomerPhone:'0769900112',PaymentMethod:'Cash',SoldBy:'Sunil',ReturnStatus:'Returned'},
+    {SaleID:'S0009',Date:'2025-05-24T11:30:00.000Z',ProductID:'LAP002',ProductName:'HP Pavilion x360',Category:'Laptops',Qty:1,UnitPrice:189900,DiscountPct:0,TotalAmount:189900,CustomerName:'Sachini De Silva',CustomerPhone:'0711223344',PaymentMethod:'Card',SoldBy:'Nimal',ReturnStatus:''},
+    {SaleID:'S0010',Date:'2025-05-25T12:30:00.000Z',ProductID:'ACC002',ProductName:'Anker PowerCore 20000mAh',Category:'Accessories',Qty:3,UnitPrice:8900,DiscountPct:0,TotalAmount:26700,CustomerName:'Thilina Gamage',CustomerPhone:'0776677889',PaymentMethod:'Cash',SoldBy:'Sunil',ReturnStatus:''},
+  ],
+  returns:[
+    {ReturnID:'R0001',Date:'2025-05-22T00:00:00.000Z',SaleID:'S0003',ProductID:'MOB003',ProductName:'Samsung Galaxy A15',Qty:1,Reason:'Defective unit — screen flickering',RefundAmount:42900,ProcessedBy:'Nimal',Status:'Completed'},
+    {ReturnID:'R0002',Date:'2025-05-24T00:00:00.000Z',SaleID:'S0008',ProductID:'MOB004',ProductName:'Xiaomi Redmi Note 13',Qty:1,Reason:'Customer changed mind within 7 days',RefundAmount:52900,ProcessedBy:'Sunil',Status:'Completed'},
+  ],
+  restockLog:[]
+};
+
+// ============================================================
+// ICONS
+// ============================================================
+const I=({n,s=20,c=''})=>{const d={'layout-dashboard':<React.Fragment><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></React.Fragment>,'package':<React.Fragment><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></React.Fragment>,'shopping-cart':<React.Fragment><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 002 1.58h9.78a2 2 0 001.95-1.57L23 6H6"/></React.Fragment>,'trending-up':<React.Fragment><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></React.Fragment>,'dollar-sign':<React.Fragment><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></React.Fragment>,'alert-triangle':<React.Fragment><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></React.Fragment>,'search':<React.Fragment><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></React.Fragment>,'bell':<React.Fragment><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></React.Fragment>,'user':<React.Fragment><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></React.Fragment>,'refresh-cw':<React.Fragment><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></React.Fragment>,'plus':<React.Fragment><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></React.Fragment>,'minus':<line x1="5" y1="12" x2="19" y2="12"/>,'credit-card':<React.Fragment><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></React.Fragment>,'check-circle':<React.Fragment><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></React.Fragment>,'x-circle':<React.Fragment><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></React.Fragment>,'x':<React.Fragment><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></React.Fragment>,'menu':<React.Fragment><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></React.Fragment>,'box':<React.Fragment><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></React.Fragment>,'receipt':<React.Fragment><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1z"/><path d="M8 10h8M8 14h4"/></React.Fragment>,'loader':<React.Fragment><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></React.Fragment>,'shield':<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>,'shield-check':<React.Fragment><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></React.Fragment>,'percent':<React.Fragment><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></React.Fragment>,'info':<React.Fragment><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></React.Fragment>,'trash-2':<React.Fragment><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></React.Fragment>,'printer':<React.Fragment><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></React.Fragment>,'wallet':<React.Fragment><path d="M21 12V7H5a2 2 0 010-4h14v4"/><path d="M3 5v14a2 2 0 002 2h16v-5"/><path d="M18 12a2 2 0 000 4h4v-4z"/></React.Fragment>,'landmark':<React.Fragment><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></React.Fragment>,'zap':<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>,'rotate-ccw':<React.Fragment><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></React.Fragment>,'alert-circle':<React.Fragment><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></React.Fragment>,'clipboard':<React.Fragment><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></React.Fragment>,'message-circle':<React.Fragment><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></React.Fragment>,'bar-chart':<React.Fragment><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></React.Fragment>,'clock':<React.Fragment><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></React.Fragment>,'phone':<React.Fragment><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></React.Fragment>,'wifi-off':<React.Fragment><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0119 12.55"/><path d="M5 12.55a10.94 10.94 0 015.17-2.39"/><path d="M10.71 5.05A16 16 0 0122.56 9"/><path d="M1.42 9a15.91 15.91 0 014.7-2.88"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></React.Fragment>,'edit':<React.Fragment><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></React.Fragment>,'eye':<React.Fragment><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></React.Fragment>,'history':<React.Fragment><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></React.Fragment>,'tag':<React.Fragment><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></React.Fragment>,'download':<React.Fragment><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></React.Fragment>,'archive':<React.Fragment><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></React.Fragment>,'star':<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>};
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={c}>{d[n]||null}</svg>};
+
+// ============================================================
+// UTILS
+// ============================================================
+const fC=a=>(!a&&a!==0)?'Rs. 0.00':'Rs. '+Number(a).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fD=d=>{if(!d)return'—';try{return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return String(d)}};
+const fDT=d=>{if(!d)return'—';try{const x=new Date(d);return x.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+', '+x.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}catch(e){return String(d)}};
+const isValidPhone=(phone)=>{const cleaned=String(phone||'').replace(/\D/g,'');return cleaned.length>=9&&cleaned.length<=12};
+const RET_REASONS=['Defective product','Wrong item delivered','Customer changed mind','Damaged in transit','Not as described','Warranty claim','Other'];
+const CATEGORIES=['Mobile Phones','Laptops','Appliances','Accessories'];
+const CAT_PREFIX={'Mobile Phones':'MOB','Laptops':'LAP','Appliances':'APP','Accessories':'ACC'};
+
+const buildWhatsAppURL=(phone,receipt)=>{
+  let ph=String(phone||'').replace(/\D/g,'');
+  if(ph.startsWith('0'))ph='94'+ph.substring(1);
+  else if(!ph.startsWith('94'))ph='94'+ph;
+  let msg=`🧾 *LIYANAGE ELECTRONICS*\n📋 Invoice: ${receipt.saleId}\n📅 ${fD(receipt.date)}\n${'─'.repeat(24)}\n`;
+  receipt.items.forEach(it=>{msg+=`▸ ${it.productName}\n  ${it.qty} × ${fC(it.unitPrice)} = ${fC(it.lineTotal)}\n`});
+  msg+=`${'─'.repeat(24)}\n`;
+  if(receipt.discountPct>0)msg+=`💰 Discount (${receipt.discountPct}%): -${fC(receipt.discountAmount)}\n`;
+  msg+=`✅ *TOTAL: ${fC(receipt.grandTotal)}*\n💳 Paid by: ${receipt.paymentMethod}\n`;
+  if(receipt.paymentMethod==='Cash'&&receipt.cashTendered>0){
+    msg+=`💵 Cash: ${fC(receipt.cashTendered)}\n🔄 Change: ${fC(receipt.change)}\n`;
+  }
+  msg+=`\nThank you for your purchase!\nඅපේ සාප්පුවෙන් මිලදී ගැනීමට ස්තූතියි!\n\n_Powered by Mahesh Web App Solution_`;
+  return `https://wa.me/${ph}?text=${encodeURIComponent(msg)}`;
+};
+
+// ============================================================
+// SHARED COMPONENTS
+// ============================================================
+const SkC=()=>(<div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100"><div className="flex items-center justify-between mb-4"><div className="shimmer-bg animate-shimmer h-4 w-24 rounded-lg"/><div className="shimmer-bg animate-shimmer h-10 w-10 rounded-xl"/></div><div className="shimmer-bg animate-shimmer h-8 w-32 rounded-lg mb-2"/><div className="shimmer-bg animate-shimmer h-3 w-20 rounded-lg"/></div>);
+const SkT=()=>(<div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"><div className="p-6 border-b border-slate-100"><div className="shimmer-bg animate-shimmer h-6 w-48 rounded-lg"/></div><div className="p-6 space-y-4">{[1,2,3,4].map(i=><div key={i} className="flex items-center gap-4"><div className="shimmer-bg animate-shimmer h-10 w-10 rounded-lg"/><div className="shimmer-bg animate-shimmer h-4 w-full rounded-lg"/></div>)}</div></div>);
+
+const Toasts=({toasts,rm})=>{
+  if(!toasts.length) return null;
+  const s={success:{b:'border-emerald-200',i:'check-circle',c:'text-emerald-500',p:'bg-emerald-500'},error:{b:'border-rose-200',i:'x-circle',c:'text-rose-500',p:'bg-rose-500'},info:{b:'border-brand-200',i:'info',c:'text-brand-500',p:'bg-brand-500'}};
+  return (
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] flex flex-col-reverse gap-3 pointer-events-none w-[calc(100%-2rem)] sm:w-auto" style={{maxWidth:380}}>
+      {toasts.map(t=>{const st=s[t.type]||s.info;return (
+        <div key={t.id} className={`bg-white border ${st.b} rounded-2xl shadow-2xl overflow-hidden animate-toast pointer-events-auto`}>
+          <div className="flex items-start gap-3 p-4"><div className={`mt-0.5 ${st.c}`}><I n={st.i} s={20}/></div><div className="flex-1 min-w-0"><p className="text-sm font-semibold text-slate-800">{t.type==='success'?'සාර්ථකයි!':t.type==='error'?'දෝෂයක්':'තොරතුරු'}</p><p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{t.message}</p></div><button onClick={()=>rm(t.id)} className="p-1 rounded-lg hover:bg-slate-100 text-slate-400"><I n="x" s={14}/></button></div>
+          <div className="h-1 bg-slate-100"><div className={`h-full ${st.p} animate-toast-bar rounded-full`}/></div>
+        </div>
+      )})}
+    </div>
+  );
+};
+
+const SC=({title,si,value,sub,icon,grad,delay=0})=>(
+  <div className="animate-slide-up bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group card-shine" style={{animationDelay:`${delay}ms`}}>
+    <div className="flex items-start justify-between mb-3"><div><p className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">{title}</p>{si&&<p className="text-[9px] text-slate-300 mt-0.5">{si}</p>}</div><div className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${grad} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}><I n={icon} s={16} c="text-white"/></div></div>
+    <p className="text-xl sm:text-2xl font-extrabold text-slate-800 animate-count-up">{value}</p>
+    {sub&&<p className="text-[10px] sm:text-xs text-slate-400 mt-1">{sub}</p>}
+  </div>
+);
+
+// Modal wrapper
+const Modal=({open,onClose,children,wide})=>{
+  if(!open) return null;
+  return (
+    <div className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm animate-overlay" onClick={onClose}/>
+      <div className={`relative w-full ${wide?'sm:max-w-2xl':'sm:max-w-lg'} bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden animate-modal max-h-[95vh] sm:max-h-[92vh] flex flex-col mobile-full`}>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+// ============================================================
+// SIDEBAR + HEADER
+// ============================================================
+const Sidebar=({tab,setTab,open,setOpen,lowCount})=>{
+  const nav=[
+    {id:'dashboard',l:'Dashboard',s:'ප්‍රධාන පුවරුව',i:'layout-dashboard'},
+    {id:'products',l:'Products',s:'භාණ්ඩ කළමනාකරණය',i:'package'},
+    {id:'new-sale',l:'New Sale',s:'නව අලෙවිය',i:'shopping-cart'},
+    {id:'sales-history',l:'Sales History',s:'අලෙවි ඉතිහාසය',i:'history'},
+    {id:'returns',l:'Returns',s:'ආපසු ලැබීම්',i:'rotate-ccw'},
+    {id:'warranty',l:'Warranty',s:'වගකීම් පරීක්ෂාව',i:'shield-check'}
+  ];
+  return (
+    <React.Fragment>
+      {open&&<div className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm animate-overlay" onClick={()=>setOpen(false)}/>}
+      <aside className={`fixed top-0 left-0 h-full z-50 w-[260px] sm:w-[280px] bg-gradient-to-b from-slate-900 via-slate-900 to-brand-950 text-white flex flex-col transition-transform duration-300 lg:translate-x-0 ${open?'translate-x-0':'-translate-x-full'}`}>
+        <div className="px-5 py-5 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-brand-400 to-brand-600 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/30 animate-glow">
+              <span className="text-white font-bold text-lg">M</span>
+            </div>
+            <div><h1 className="text-sm font-bold text-white">Mahesh Web App</h1><p className="text-[10px] text-brand-300 font-medium tracking-widest uppercase">Solution</p></div>
+          </div>
+        </div>
+        <div className="px-5 py-3 border-b border-white/5">
+          <div className="flex items-center gap-3 px-3 py-2 bg-white/5 rounded-xl">
+            <div className="w-7 h-7 bg-emerald-500/20 rounded-lg flex items-center justify-center"><span className="text-emerald-400 text-[10px] font-bold">LE</span></div>
+            <div><p className="text-[11px] font-semibold text-white">Liyanage Electronics</p><p className="text-[9px] text-slate-400">ලියනගේ ඉලෙක්ට්‍රොනික්ස්</p></div>
+          </div>
+        </div>
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+          <p className="px-3 mb-2 text-[9px] font-semibold text-slate-500 uppercase tracking-widest">ප්‍රධාන මෙනුව</p>
+          {nav.map(n=>(
+            <button key={n.id} onClick={()=>{setTab(n.id);setOpen(false)}} className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left transition-all group ${tab===n.id?'bg-brand-600/90 text-white shadow-lg shadow-brand-600/30':'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${tab===n.id?'bg-white/20':'bg-white/5 group-hover:bg-white/10'}`}><I n={n.i} s={16}/></div>
+              <div className="flex-1"><p className="text-[13px] font-medium">{n.l}</p><p className={`text-[9px] ${tab===n.id?'text-brand-200':'text-slate-500'}`}>{n.s}</p></div>
+              {n.id==='products'&&lowCount>0&&<span className="bg-rose-500 text-white text-[8px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse-slow">{lowCount}</span>}
+              {tab===n.id&&<div className="w-1 h-6 bg-white/40 rounded-full"/>}
+            </button>
+          ))}
+        </nav>
+        <div className="px-4 py-3 border-t border-white/10">
+          <div className="flex items-center gap-3 px-3 py-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center"><span className="text-white font-bold text-xs">A</span></div>
+            <div><p className="text-sm font-medium text-white">Admin</p><p className="text-[9px] text-slate-400">පරිපාලක</p></div>
+          </div>
+        </div>
+      </aside>
+    </React.Fragment>
+  );
+};
+
+const Header=({tab,setOpen,onRefresh,loading,cached})=>{
+  const t={'dashboard':{e:'Dashboard',s:'ප්‍රධාන පුවරුව'},'products':{e:'Products',s:'භාණ්ඩ කළමනාකරණය'},'new-sale':{e:'Point of Sale',s:'නව අලෙවිය'},'sales-history':{e:'Sales History',s:'අලෙවි ඉතිහාසය'},'returns':{e:'Returns',s:'ආපසු ලැබීම්'},'warranty':{e:'Warranty',s:'වගකීම්'}}[tab]||{e:'Dashboard',s:''};
+  return (
+    <header className="sticky top-0 z-30 glass border-b border-slate-200/60">
+      <div className="flex items-center justify-between px-3 sm:px-8 h-14 sm:h-16">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button onClick={()=>setOpen(true)} className="lg:hidden p-2 rounded-xl hover:bg-slate-100 text-slate-600 active:scale-95 transition-transform"><I n="menu" s={20}/></button>
+          <div><h2 className="text-base sm:text-lg font-bold text-slate-800">{t.e} <span className="text-xs font-normal text-slate-400 hidden sm:inline">({t.s})</span></h2></div>
+        </div>
+        <div className="flex items-center gap-1.5 sm:gap-3">
+          {cached&&<span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200"><I n="wifi-off" s={10}/>Cached</span>}
+          <button onClick={onRefresh} disabled={loading} className={`p-2 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-brand-600 transition-all active:scale-95 ${loading?'animate-spin':''}`}><I n="refresh-cw" s={15}/></button>
+          <div className="hidden sm:flex items-center gap-2 ml-2 pl-3 border-l border-slate-200">
+            <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-700 rounded-lg flex items-center justify-center"><span className="text-white font-bold text-xs">A</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+const Dashboard=({data,loading})=>{
+  const s=useMemo(()=>{
+    if(!data?.sales) return null;
+    const r=data.sales.reduce((a,x)=>a+(Number(x.TotalAmount)||0),0);
+    const u=[...new Set(data.sales.map(x=>x.SaleID))].length;
+    const p=data.products?.length||0;
+    const l=data.products?.filter(x=>x.Status==='Low Stock'||x.StockQty<=x.MinStockLevel).length||0;
+    const tr=data.returns?.length||0;
+    const ra=data.returns?.reduce((a,x)=>a+(Number(x.RefundAmount)||0),0)||0;
+    const profit=data.sales.reduce((a,sl)=>{
+      const pr=data.products?.find(p=>p.ProductID===sl.ProductID);
+      if(!pr) return a;
+      return a+((Number(sl.UnitPrice)-Number(pr.CostPrice||0))*Number(sl.Qty));
+    },0);
+    return {r,u,p,l,tr,ra,profit};
+  },[data]);
+
+  const catData=useMemo(()=>{
+    if(!data?.sales) return [];
+    const m={};
+    data.sales.forEach(s=>{
+      if(!m[s.Category]) m[s.Category]={cat:s.Category,total:0,count:0};
+      m[s.Category].total+=Number(s.TotalAmount)||0;
+      m[s.Category].count+=Number(s.Qty)||0;
+    });
+    return Object.values(m).sort((a,b)=>b.total-a.total);
+  },[data]);
+
+  const recent=useMemo(()=>{
+    if(!data?.sales) return [];
+    const g={};
+    data.sales.forEach(s=>{if(!g[s.SaleID])g[s.SaleID]={id:s.SaleID,date:s.Date,cust:s.CustomerName,pay:s.PaymentMethod,items:[],total:0};g[s.SaleID].items.push(s);g[s.SaleID].total+=Number(s.TotalAmount)||0});
+    return Object.values(g).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,6);
+  },[data]);
+
+  const lowItems=useMemo(()=>data?.products?.filter(p=>p.Status==='Low Stock'||p.StockQty<=p.MinStockLevel)||[],[data]);
+
+  if(loading||!s) return <div className="space-y-5"><div className="grid grid-cols-2 xl:grid-cols-4 gap-3"><SkC/><SkC/><SkC/><SkC/></div><SkT/></div>;
+
+  const catColors=['from-blue-400 to-blue-600','from-violet-400 to-violet-600','from-emerald-400 to-emerald-600','from-amber-400 to-amber-600','from-rose-400 to-rose-600'];
+  const maxCatTotal=catData.length>0?catData[0].total:1;
+
+  return (
+    <div className="space-y-5 animate-fade-in">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
+        <SC title="Revenue" si="මුළු ආදායම" value={fC(s.r)} sub={`${s.u} orders`} icon="dollar-sign" grad="from-emerald-400 to-emerald-600"/>
+        <SC title="Profit" si="ලාභය" value={fC(s.profit)} sub="Estimated" icon="trending-up" grad="from-brand-400 to-brand-600" delay={80}/>
+        <SC title="Products" si="භාණ්ඩ" value={s.p} sub={`${s.l} low stock`} icon="package" grad="from-violet-400 to-violet-600" delay={160}/>
+        <SC title="Returns" si="ආපසු" value={s.tr} sub={fC(s.ra)+' refunded'} icon="rotate-ccw" grad="from-amber-400 to-orange-500" delay={240}/>
+      </div>
+
+      {lowItems.length>0&&(
+        <div className="bg-gradient-to-r from-rose-50 to-amber-50 rounded-2xl p-4 border border-rose-200 animate-slide-up" style={{animationDelay:'300ms'}}>
+          <div className="flex items-center gap-2 mb-3"><I n="alert-triangle" s={16} c="text-rose-500 animate-bounce-subtle"/><span className="text-sm font-bold text-rose-700">⚠️ Low Stock Alerts (අඩු තොග අනතුරු ඇඟවීම්)</span></div>
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {lowItems.map(p=><div key={p.ProductID} className="flex-shrink-0 bg-white rounded-xl px-3 py-2 border border-rose-200 shadow-sm"><p className="text-xs font-semibold text-slate-700 whitespace-nowrap">{p.ProductName}</p><div className="flex items-center gap-2 mt-1"><span className="text-lg font-extrabold text-rose-600 animate-pulse-slow">{p.StockQty}</span><span className="text-[10px] text-slate-400">/ min {p.MinStockLevel}</span></div></div>)}
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
+        {/* Category Breakdown */}
+        <div className="xl:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-5 animate-slide-up" style={{animationDelay:'200ms'}}>
+          <h3 className="text-sm font-bold text-slate-800 mb-4">📊 Category Revenue (ප්‍රවර්ග ආදායම)</h3>
+          <div className="space-y-3">
+            {catData.map((c,i)=>(
+              <div key={c.cat}>
+                <div className="flex justify-between text-xs mb-1"><span className="font-medium text-slate-600">{c.cat}</span><span className="font-bold text-slate-800">{fC(c.total)}</span></div>
+                <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden"><div className={`h-full bg-gradient-to-r ${catColors[i%catColors.length]} rounded-full transition-all duration-1000`} style={{width:`${(c.total/maxCatTotal*100).toFixed(0)}%`}}/></div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Recent Sales */}
+        <div className="xl:col-span-3 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden animate-fade-in" style={{animationDelay:'300ms'}}>
+          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h3 className="text-sm font-bold text-slate-800">🕐 Recent Sales (මෑත විකුණුම්)</h3>
+            <span className="text-xs font-semibold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-lg">{s.u}</span>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[500px]">
+              <thead><tr className="bg-slate-50/80">
+                <th className="text-left px-5 py-3 text-[10px] font-semibold text-slate-500 uppercase">ID</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Customer</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Items</th>
+                <th className="text-right px-5 py-3 text-[10px] font-semibold text-slate-500 uppercase">Amount</th>
+              </tr></thead>
+              <tbody className="divide-y divide-slate-50">
+                {recent.map(r=>(
+                  <tr key={r.id} className="rh">
+                    <td className="px-5 py-3"><span className="text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">{r.id}</span><br/><span className="text-[10px] text-slate-400">{fD(r.date)}</span></td>
+                    <td className="px-4 py-3 text-sm font-medium text-slate-700">{r.cust}</td>
+                    <td className="px-4 py-3"><span className="text-sm text-slate-700">{r.items[0].ProductName.substring(0,18)}{r.items[0].ProductName.length>18?'...':''}</span>{r.items.length>1&&<span className="text-[10px] text-brand-500 ml-1">+{r.items.length-1}</span>}</td>
+                    <td className="px-5 py-3 text-right text-sm font-bold text-slate-800">{fC(r.total)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============================================================
+// PRODUCTS — with Add/Edit/Delete/View
+// ============================================================
+const Products=({data,loading,toast,setData})=>{
+  const [q,sQ]=useState('');
+  const [fc,sFc]=useState('All');
+  const [showAdd,setShowAdd]=useState(false);
+  const [editP,setEditP]=useState(null);
+  const [viewP,setViewP]=useState(null);
+  const [delP,setDelP]=useState(null);
+
+  // Add product form state
+  const emptyForm={productName:'',category:'Mobile Phones',brand:'',model:'',unitPrice:'',costPrice:'',stockQty:'',minStockLevel:'5',warrantyMonths:'12',supplier:''};
+  const [form,setForm]=useState(emptyForm);
+  const updateF=(k,v)=>setForm(p=>({...p,[k]:v}));
+
+  const cats=useMemo(()=>{if(!data?.products)return['All'];return['All',...new Set(data.products.map(p=>p.Category))];},[data]);
+
+  const list=useMemo(()=>{
+    if(!data?.products) return [];
+    return data.products.filter(p=>{
+      const m=!q||p.ProductName.toLowerCase().includes(q.toLowerCase())||p.ProductID.toLowerCase().includes(q.toLowerCase())||p.Brand.toLowerCase().includes(q.toLowerCase());
+      return m&&(fc==='All'||p.Category===fc);
+    });
+  },[data,q,fc]);
+
+  const genId=(cat)=>{
+    const prefix=CAT_PREFIX[cat]||'PRD';
+    const existing=(data?.products||[]).filter(p=>p.ProductID.startsWith(prefix)).map(p=>parseInt(p.ProductID.replace(prefix,''))||0);
+    const next=existing.length>0?Math.max(...existing)+1:1;
+    return prefix+String(next).padStart(3,'0');
+  };
+
+  const handleAdd=()=>{
+    if(!form.productName.trim()){toast('Product name is required','error');return}
+    if(!form.brand.trim()){toast('Brand is required','error');return}
+    if(!Number(form.unitPrice)){toast('Unit price is required','error');return}
+    const newId=genId(form.category);
+    const sQ2=Number(form.stockQty)||0;
+    const mS=Number(form.minStockLevel)||5;
+    const newProduct={
+      ProductID:newId,ProductName:form.productName.trim(),Category:form.category,Brand:form.brand.trim(),Model:form.model.trim(),
+      UnitPrice:Number(form.unitPrice),CostPrice:Number(form.costPrice)||0,StockQty:sQ2,MinStockLevel:mS,
+      WarrantyMonths:Number(form.warrantyMonths)||0,Supplier:form.supplier.trim(),DateAdded:new Date().toISOString(),
+      Status:sQ2<=mS?'Low Stock':'Active'
+    };
+    setData(prev=>({...prev,products:[...(prev.products||[]),newProduct]}));
+    toast(`✅ ${form.productName} added (${newId})`,'success');
+    setForm(emptyForm);
+    setShowAdd(false);
+  };
+
+  const handleEdit=()=>{
+    if(!form.productName.trim()){toast('Product name is required','error');return}
+    const sQ2=Number(form.stockQty)||0;
+    const mS=Number(form.minStockLevel)||5;
+    setData(prev=>({...prev,products:(prev.products||[]).map(p=>p.ProductID===editP.ProductID?{...p,ProductName:form.productName.trim(),Category:form.category,Brand:form.brand.trim(),Model:form.model.trim(),UnitPrice:Number(form.unitPrice),CostPrice:Number(form.costPrice)||0,StockQty:sQ2,MinStockLevel:mS,WarrantyMonths:Number(form.warrantyMonths)||0,Supplier:form.supplier.trim(),Status:sQ2<=mS?'Low Stock':'Active'}:p)}));
+    toast(`✏️ ${form.productName} updated`,'success');
+    setEditP(null);
+    setForm(emptyForm);
+  };
+
+  const handleDelete=()=>{
+    setData(prev=>({...prev,products:(prev.products||[]).filter(p=>p.ProductID!==delP.ProductID)}));
+    toast(`🗑️ ${delP.ProductName} deleted`,'info');
+    setDelP(null);
+  };
+
+  const openEdit=(p)=>{
+    setForm({productName:p.ProductName,category:p.Category,brand:p.Brand,model:p.Model||'',unitPrice:String(p.UnitPrice),costPrice:String(p.CostPrice||''),stockQty:String(p.StockQty),minStockLevel:String(p.MinStockLevel),warrantyMonths:String(p.WarrantyMonths||''),supplier:p.Supplier||''});
+    setEditP(p);
+  };
+
+  const totalStock=(data?.products||[]).reduce((s,p)=>s+Number(p.StockQty),0);
+  const totalValue=(data?.products||[]).reduce((s,p)=>s+Number(p.UnitPrice)*Number(p.StockQty),0);
+  const lowCount=(data?.products||[]).filter(p=>p.Status==='Low Stock'||p.StockQty<=p.MinStockLevel).length;
+
+  if(loading) return <SkT/>;
+
+  // Product form (shared for add/edit)
+  const renderForm=(isEdit)=>(
+    <div className="p-5 space-y-3 overflow-y-auto flex-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="sm:col-span-2"><label className="text-[10px] text-slate-500 font-semibold uppercase">Product Name *</label><input type="text" value={form.productName} onChange={e=>updateF('productName',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="e.g. Samsung Galaxy S25"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Category *</label><select value={form.category} onChange={e=>updateF('category',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring appearance-none">{CATEGORIES.map(c=><option key={c}>{c}</option>)}</select></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Brand *</label><input type="text" value={form.brand} onChange={e=>updateF('brand',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="e.g. Samsung"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Model</label><input type="text" value={form.model} onChange={e=>updateF('model',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="e.g. S25 Ultra"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Supplier</label><input type="text" value={form.supplier} onChange={e=>updateF('supplier',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="e.g. Samsung Lanka"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Selling Price (Rs.) *</label><input type="number" value={form.unitPrice} onChange={e=>updateF('unitPrice',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="0"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Cost Price (Rs.)</label><input type="number" value={form.costPrice} onChange={e=>updateF('costPrice',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="0"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Stock Qty</label><input type="number" value={form.stockQty} onChange={e=>updateF('stockQty',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="0"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Min Stock Level</label><input type="number" value={form.minStockLevel} onChange={e=>updateF('minStockLevel',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="5"/></div>
+        <div><label className="text-[10px] text-slate-500 font-semibold uppercase">Warranty (Months)</label><input type="number" value={form.warrantyMonths} onChange={e=>updateF('warrantyMonths',e.target.value)} className="w-full mt-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="12"/></div>
+      </div>
+      {form.productName&&form.unitPrice&&(
+        <div className="mt-3 p-3 bg-gradient-to-r from-brand-50 to-violet-50 rounded-xl border border-brand-100 animate-scale-in">
+          <p className="text-[10px] text-slate-500 font-semibold mb-1">PREVIEW</p>
+          <p className="text-sm font-bold text-slate-800">{form.productName}</p>
+          <p className="text-xs text-slate-500">{form.brand} {form.model} • {form.category}</p>
+          <p className="text-base font-extrabold text-brand-600 mt-1">{fC(Number(form.unitPrice))}</p>
+          {form.costPrice&&Number(form.unitPrice)>Number(form.costPrice)&&<p className="text-[10px] text-emerald-600">Profit margin: {((1-Number(form.costPrice)/Number(form.unitPrice))*100).toFixed(1)}%</p>}
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      {/* Stats */}
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
+        <SC title="Total Products" si="සමස්ත භාණ්ඩ" value={data.products?.length||0} icon="package" grad="from-brand-400 to-brand-600"/>
+        <SC title="Total Stock" si="සමස්ත තොග" value={totalStock} icon="archive" grad="from-violet-400 to-violet-600" delay={80}/>
+        <SC title="Stock Value" si="තොග වටිනාකම" value={fC(totalValue)} icon="dollar-sign" grad="from-emerald-400 to-emerald-600" delay={160}/>
+        <SC title="Low Stock" si="අඩු තොග" value={lowCount} icon="alert-triangle" grad="from-rose-400 to-rose-600" delay={240}/>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
+            <div className="relative w-full sm:w-72">
+              <I n="search" s={15} c="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
+              <input type="text" placeholder="Search products..." value={q} onChange={e=>sQ(e.target.value)} className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring placeholder:text-slate-300"/>
+            </div>
+            <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+              <div className="flex gap-1.5 flex-wrap">
+                {cats.map(c=><button key={c} onClick={()=>sFc(c)} className={`px-2.5 py-1 text-[10px] font-semibold rounded-lg active:scale-95 ${fc===c?'bg-brand-600 text-white':'bg-slate-100 text-slate-500'}`}>{c}</button>)}
+              </div>
+              <button onClick={()=>{setForm(emptyForm);setShowAdd(true)}} className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-brand-500/25 active:scale-95 transition-transform">
+                <I n="plus" s={14}/>Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[600px]">
+            <thead><tr className="bg-slate-50/80">
+              <th className="text-left px-5 py-3 text-[10px] font-semibold text-slate-500 uppercase">Product</th>
+              <th className="text-right px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Price</th>
+              <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Stock</th>
+              <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Status</th>
+              <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Actions</th>
+            </tr></thead>
+            <tbody>
+              {list.length===0?<tr><td colSpan="5" className="px-6 py-14 text-center text-sm text-slate-400">No products found</td></tr>:
+              list.map(p=>{
+                const low=p.Status==='Low Stock'||p.StockQty<=p.MinStockLevel;
+                return (
+                  <tr key={p.ProductID} className="rh border-b border-slate-50">
+                    <td className="px-5 py-3.5">
+                      <p className="text-sm font-semibold text-slate-800 truncate max-w-[220px]">{p.ProductName}</p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-[10px] text-brand-500 font-mono bg-brand-50 px-1.5 py-0.5 rounded">{p.ProductID}</span>
+                        <span className="text-[10px] text-slate-400">{p.Brand}</span>
+                        <span className="text-[10px] text-slate-300">• {p.Category}</span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3.5 text-right">
+                      <p className="text-sm font-bold text-slate-800">{fC(p.UnitPrice)}</p>
+                      {p.CostPrice>0&&<p className="text-[10px] text-slate-400">Cost: {fC(p.CostPrice)}</p>}
+                    </td>
+                    <td className="px-4 py-3.5 text-center"><span className={`text-sm font-bold ${low?'text-rose-600 animate-pulse-slow':'text-slate-700'}`}>{p.StockQty}</span></td>
+                    <td className="px-4 py-3.5 text-center"><span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${low?'text-rose-700 bg-rose-50 border-rose-200':'text-emerald-700 bg-emerald-50 border-emerald-200'}`}><span className={`w-1.5 h-1.5 rounded-full ${low?'bg-rose-500 animate-pulse-dot':'bg-emerald-500'}`}/>{low?'Low':'Active'}</span></td>
+                    <td className="px-4 py-3.5 text-center">
+                      <div className="flex items-center justify-center gap-1">
+                        <button onClick={()=>setViewP(p)} className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-400 hover:text-blue-500 transition-colors" title="View"><I n="eye" s={14}/></button>
+                        <button onClick={()=>openEdit(p)} className="p-1.5 rounded-lg hover:bg-amber-50 text-slate-400 hover:text-amber-500 transition-colors" title="Edit"><I n="edit" s={14}/></button>
+                        <button onClick={()=>setDelP(p)} className="p-1.5 rounded-lg hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition-colors" title="Delete"><I n="trash-2" s={14}/></button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div className="px-5 py-2 bg-slate-50/50 border-t border-slate-100"><p className="text-[10px] text-slate-400">{list.length} of {data.products?.length||0} products</p></div>
+      </div>
+
+      {/* Add Product Modal */}
+      <Modal open={showAdd} onClose={()=>setShowAdd(false)} wide>
+        <div className="bg-gradient-to-r from-brand-600 to-brand-700 px-5 py-4 flex items-center justify-between flex-shrink-0">
+          <div className="flex items-center gap-3"><div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center"><I n="plus" s={20} c="text-white"/></div><div><h3 className="text-base font-bold text-white">Add New Product</h3><p className="text-xs text-brand-200">නව භාණ්ඩයක් එකතු කරන්න</p></div></div>
+          <button onClick={()=>setShowAdd(false)} className="p-2 rounded-lg hover:bg-white/10 text-white"><I n="x" s={18}/></button>
+        </div>
+        {renderForm(false)}
+        <div className="flex-shrink-0 px-5 py-3 bg-slate-50 border-t flex gap-3">
+          <button onClick={()=>setShowAdd(false)} className="flex-1 py-2.5 bg-white border border-slate-200 text-sm font-semibold rounded-xl active:scale-95">Cancel</button>
+          <button onClick={handleAdd} className="flex-1 py-2.5 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-sm font-bold rounded-xl active:scale-95 shadow-lg"><I n="check-circle" s={16} c="inline -mt-0.5 mr-1"/>Add Product</button>
+        </div>
+      </Modal>
+
+      {/* Edit Product Modal */}
+      <Modal open={!!editP} onClose={()=>setEditP(null)} wide>
+        <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-4 flex items-center justify-between flex-shrink-0">
+          <div className="flex items-center gap-3"><div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center"><I n="edit" s={20} c="text-white"/></div><div><h3 className="text-base font-bold text-white">Edit Product</h3><p className="text-xs text-amber-100">{editP?.ProductID} — භාණ්ඩය සංස්කරණය</p></div></div>
+          <button onClick={()=>setEditP(null)} className="p-2 rounded-lg hover:bg-white/10 text-white"><I n="x" s={18}/></button>
+        </div>
+        {renderForm(true)}
+        <div className="flex-shrink-0 px-5 py-3 bg-slate-50 border-t flex gap-3">
+          <button onClick={()=>setEditP(null)} className="flex-1 py-2.5 bg-white border border-slate-200 text-sm font-semibold rounded-xl active:scale-95">Cancel</button>
+          <button onClick={handleEdit} className="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-bold rounded-xl active:scale-95 shadow-lg"><I n="check-circle" s={16} c="inline -mt-0.5 mr-1"/>Save Changes</button>
+        </div>
+      </Modal>
+
+      {/* View Product Modal */}
+      <Modal open={!!viewP} onClose={()=>setViewP(null)}>
+        {viewP&&(
+          <React.Fragment>
+            <div className="bg-gradient-to-r from-violet-600 to-brand-600 px-5 py-4 flex items-center justify-between flex-shrink-0">
+              <div><h3 className="text-base font-bold text-white">{viewP.ProductName}</h3><p className="text-xs text-violet-200">{viewP.ProductID} • {viewP.Brand}</p></div>
+              <button onClick={()=>setViewP(null)} className="p-2 rounded-lg hover:bg-white/10 text-white"><I n="x" s={18}/></button>
+            </div>
+            <div className="p-5 space-y-3">
+              {[['Category',viewP.Category],['Brand / Model',`${viewP.Brand} ${viewP.Model||''}`],['Selling Price',fC(viewP.UnitPrice)],['Cost Price',fC(viewP.CostPrice||0)],['Profit Margin',viewP.CostPrice?((1-viewP.CostPrice/viewP.UnitPrice)*100).toFixed(1)+'%':'—'],['Stock',`${viewP.StockQty} units (Min: ${viewP.MinStockLevel})`],['Warranty',`${viewP.WarrantyMonths||0} months`],['Supplier',viewP.Supplier||'—'],['Date Added',fD(viewP.DateAdded)],['Status',viewP.Status]].map(([k,v])=>(
+                <div key={k} className="flex justify-between py-2 border-b border-slate-50">
+                  <span className="text-xs text-slate-500">{k}</span>
+                  <span className={`text-sm font-semibold ${k==='Status'?(v==='Low Stock'?'text-rose-600':'text-emerald-600'):'text-slate-800'}`}>{v}</span>
+                </div>
+              ))}
+            </div>
+          </React.Fragment>
+        )}
+      </Modal>
+
+      {/* Delete Confirmation */}
+      <Modal open={!!delP} onClose={()=>setDelP(null)}>
+        {delP&&(
+          <React.Fragment>
+            <div className="p-6 text-center">
+              <div className="w-14 h-14 mx-auto bg-rose-100 rounded-full flex items-center justify-center mb-4"><I n="trash-2" s={24} c="text-rose-500"/></div>
+              <h3 className="text-lg font-bold text-slate-800">Delete Product?</h3>
+              <p className="text-sm text-slate-500 mt-2">"{delP.ProductName}" permanently delete කරන්නද?</p>
+              <p className="text-xs text-slate-400 mt-1">මෙය ආපසු හැරවිය නොහැක</p>
+            </div>
+            <div className="px-6 pb-6 flex gap-3">
+              <button onClick={()=>setDelP(null)} className="flex-1 py-2.5 bg-white border border-slate-200 text-sm font-semibold rounded-xl active:scale-95">No, Cancel</button>
+              <button onClick={handleDelete} className="flex-1 py-2.5 bg-gradient-to-r from-rose-500 to-rose-600 text-white text-sm font-bold rounded-xl active:scale-95 shadow-lg">Yes, Delete</button>
+            </div>
+          </React.Fragment>
+        )}
+      </Modal>
+    </div>
+  );
+};
+
+// ============================================================
+// NEW SALE (POS)
+// ============================================================
+const NewSale=({data,loading,toast,setData})=>{
+  const [cart,setCart]=useState([]);
+  const [sp,sSp]=useState('');
+  const [aq,sAq]=useState(1);
+  const [dp,sDp]=useState(0);
+  const [cn,sCn]=useState('');
+  const [cp,sCp]=useState('');
+  const [pm,sPm]=useState('Cash');
+  const [ct,sCt]=useState('');
+  const [sb,sSb]=useState('Nimal');
+  const [sub,sSub]=useState(false);
+  const [rec,sRec]=useState(null);
+  const [pq,sPq]=useState('');
+
+  const prods=useMemo(()=>data?.products?.filter(p=>p.StockQty>0)||[],[data]);
+  const selP=useMemo(()=>prods.find(p=>p.ProductID===sp),[prods,sp]);
+
+  const filteredProds=useMemo(()=>{
+    if(!pq.trim()) return [];
+    return prods.filter(p=>p.ProductName.toLowerCase().includes(pq.toLowerCase())||p.ProductID.toLowerCase().includes(pq.toLowerCase())).slice(0,5);
+  },[prods,pq]);
+
+  const st=cart.reduce((s,i)=>s+i.up*i.qty,0);
+  const da=Math.round(st*dp/100);
+  const gt=st-da;
+
+  const quickAmounts=useMemo(()=>{
+    if(gt<=0) return [];
+    const bases=[500,1000,2000,5000,10000,20000,50000,100000,200000,500000];
+    return bases.filter(a=>a>=gt).slice(0,4);
+  },[gt]);
+
+  const canCO=cart.length>0&&gt>0&&(pm!=='Cash'||Number(ct)>=gt);
+
+  const quickAdd=(p)=>{
+    const ex=cart.find(c=>c.pid===p.ProductID);
+    const cq=ex?ex.qty:0;
+    if(cq+1>p.StockQty){toast(`Only ${p.StockQty-cq} left`,'error');return}
+    if(ex) setCart(cart.map(c=>c.pid===p.ProductID?{...c,qty:c.qty+1}:c));
+    else setCart([...cart,{pid:p.ProductID,name:p.ProductName,brand:p.Brand,cat:p.Category,up:p.UnitPrice,qty:1}]);
+    toast(`Added ${p.ProductName}`,'success');
+    sPq('');
+  };
+
+  const addC=()=>{
+    if(!selP) return;
+    const ex=cart.find(c=>c.pid===selP.ProductID);
+    const cq=ex?ex.qty:0;
+    if(cq+aq>selP.StockQty){toast(`Only ${selP.StockQty-cq} left in stock`,'error');return}
+    if(ex) setCart(cart.map(c=>c.pid===selP.ProductID?{...c,qty:c.qty+aq}:c));
+    else setCart([...cart,{pid:selP.ProductID,name:selP.ProductName,brand:selP.Brand,cat:selP.Category,up:selP.UnitPrice,qty:aq}]);
+    toast(`Added ${selP.ProductName}`,'success');
+    sSp('');sAq(1);
+  };
+
+  const reset=()=>{setCart([]);sSp('');sAq(1);sDp(0);sCn('');sCp('');sPm('Cash');sCt('');sRec(null);sPq('')};
+
+  const checkout=async()=>{
+    if(!canCO) return;
+    sSub(true);
+    try{
+      await new Promise(r=>setTimeout(r,800));
+      const ids=data.sales?[...new Set(data.sales.map(s=>s.SaleID))]:[];
+      const mx=ids.reduce((m,id)=>Math.max(m,parseInt(id.replace(/\D/g,''))||0),0);
+      const sid='S'+String(mx+1).padStart(4,'0');
+      const now=new Date().toISOString();
+
+      const rawLineTotals=cart.map(c=>c.up*c.qty);
+      const rawSum=rawLineTotals.reduce((s,v)=>s+v,0);
+      let allocated=0;
+      const ri=cart.map((c,idx)=>{
+        let lineTotal;
+        if(idx===cart.length-1){lineTotal=gt-allocated}else{lineTotal=rawSum>0?Math.round(gt*(c.up*c.qty)/rawSum):0}
+        allocated+=lineTotal;
+        return {productId:c.pid,productName:c.name,qty:c.qty,unitPrice:c.up,lineTotal};
+      });
+
+      const cashNum=pm==='Cash'?Number(ct):0;
+      sRec({saleId:sid,date:now,items:ri,subtotal:st,discountPct:dp,discountAmount:da,grandTotal:gt,customerName:cn||'Walk-in',customerPhone:cp,paymentMethod:pm,soldBy:sb,cashTendered:cashNum,change:pm==='Cash'?cashNum-gt:0});
+
+      setData(prev=>{
+        const up=(prev.products||[]).map(p=>{const ci=cart.find(c=>c.pid===p.ProductID);if(ci){const nq=p.StockQty-ci.qty;return{...p,StockQty:nq,Status:nq<=p.MinStockLevel?'Low Stock':'Active'}}return p});
+        let allocSale=0;
+        const nsr=cart.map((c,idx)=>{let lineAmt;if(idx===cart.length-1){lineAmt=gt-allocSale}else{lineAmt=rawSum>0?Math.round(gt*(c.up*c.qty)/rawSum):0}allocSale+=lineAmt;return{SaleID:sid,Date:now,ProductID:c.pid,ProductName:c.name,Category:c.cat,Qty:c.qty,UnitPrice:c.up,DiscountPct:dp,TotalAmount:lineAmt,CustomerName:cn||'Walk-in',CustomerPhone:cp,PaymentMethod:pm,SoldBy:sb,ReturnStatus:''}});
+        return{...prev,products:up,sales:[...(prev.sales||[]),...nsr]};
+      });
+      toast(`Sale ${sid} — ${fC(gt)}`,'success');
+    }catch(e){toast('Error processing sale','error')}
+    sSub(false);
+  };
+
+  if(loading) return <SkT/>;
+
+  return (
+    <React.Fragment>
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 animate-fade-in">
+        <div className="lg:col-span-3 space-y-4">
+          {/* Quick Search */}
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <div className="px-4 sm:px-5 py-3 bg-gradient-to-r from-slate-800 to-slate-900 flex items-center justify-between">
+              <p className="text-sm font-bold text-white">🛒 Add Items (භාණ්ඩ එකතු කරන්න)</p>
+            </div>
+            <div className="p-4 space-y-3">
+              {/* Quick search bar */}
+              <div className="relative">
+                <I n="search" s={15} c="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
+                <input type="text" placeholder="Quick search — type product name..." value={pq} onChange={e=>sPq(e.target.value)} className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring placeholder:text-slate-300"/>
+              </div>
+              {filteredProds.length>0&&(
+                <div className="bg-slate-50 rounded-xl border border-slate-200 divide-y divide-slate-100 animate-scale-in">
+                  {filteredProds.map(p=>(
+                    <button key={p.ProductID} onClick={()=>quickAdd(p)} className="w-full flex items-center justify-between px-4 py-2.5 hover:bg-brand-50 transition-colors text-left">
+                      <div><p className="text-sm font-medium text-slate-700">{p.ProductName}</p><p className="text-[10px] text-slate-400">{p.Brand} • Stock: {p.StockQty}</p></div>
+                      <div className="text-right"><p className="text-sm font-bold text-brand-600">{fC(p.UnitPrice)}</p><span className="text-[9px] text-brand-500">+ Add</span></div>
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1">
+                  <select value={sp} onChange={e=>{sSp(e.target.value);sAq(1)}} className="w-full pl-4 pr-10 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring appearance-none">
+                    <option value="">— Or select from list —</option>
+                    {prods.map(p=><option key={p.ProductID} value={p.ProductID}>{p.ProductName} — {fC(p.UnitPrice)} ({p.StockQty})</option>)}
+                  </select>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center bg-slate-100 rounded-xl border border-slate-200">
+                    <button onClick={()=>sAq(Math.max(1,aq-1))} className="px-3 py-2.5 text-slate-500 active:bg-slate-200"><I n="minus" s={14}/></button>
+                    <span className="px-3 text-sm font-bold">{aq}</span>
+                    <button onClick={()=>sAq(Math.min(aq+1,selP?selP.StockQty:99))} className="px-3 py-2.5 text-slate-500 active:bg-slate-200"><I n="plus" s={14}/></button>
+                  </div>
+                  <button onClick={addC} disabled={!selP} className="px-5 py-2.5 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-sm font-bold rounded-xl disabled:opacity-40 active:scale-95 transition-transform"><I n="plus" s={16} c="inline -mt-0.5 mr-1"/>Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Cart */}
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
+              <div className="flex items-center gap-2"><I n="shopping-cart" s={16} c="text-brand-500"/><span className="text-sm font-bold text-slate-800">Cart</span>{cart.length>0&&<span className="bg-brand-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{cart.length}</span>}</div>
+              {cart.length>0&&<button onClick={()=>setCart([])} className="text-[11px] font-semibold text-rose-500 hover:text-rose-600">Clear All</button>}
+            </div>
+            {cart.length===0?(
+              <div className="py-12 text-center"><div className="animate-float"><I n="shopping-cart" s={32} c="mx-auto text-slate-200 mb-3"/></div><p className="text-sm text-slate-400">Cart is empty</p><p className="text-xs text-slate-300 mt-1">භාණ්ඩ search කරලා add කරන්න</p></div>
+            ):(
+              <div className="divide-y divide-slate-50">
+                {cart.map((c,i)=>(
+                  <div key={c.pid} className="px-4 py-3 flex items-center gap-3 animate-cart-pop" style={{animationDelay:`${i*40}ms`}}>
+                    <div className="flex-1 min-w-0"><p className="text-sm font-semibold text-slate-800 truncate">{c.name}</p><p className="text-[10px] text-slate-400">{c.brand} • {fC(c.up)} each</p></div>
+                    <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200">
+                      <button onClick={()=>{if(c.qty<=1)setCart(cart.filter(x=>x.pid!==c.pid));else setCart(cart.map(x=>x.pid===c.pid?{...x,qty:x.qty-1}:x))}} className="px-2 py-1 text-slate-500"><I n="minus" s={12}/></button>
+                      <span className="px-2 text-sm font-bold">{c.qty}</span>
+                      <button onClick={()=>{const pr=data?.products?.find(x=>x.ProductID===c.pid);if(pr&&c.qty<pr.StockQty)setCart(cart.map(x=>x.pid===c.pid?{...x,qty:x.qty+1}:x))}} className="px-2 py-1 text-slate-500"><I n="plus" s={12}/></button>
+                    </div>
+                    <span className="text-sm font-bold text-slate-800 min-w-[70px] text-right">{fC(c.up*c.qty)}</span>
+                    <button onClick={()=>setCart(cart.filter(x=>x.pid!==c.pid))} className="p-1 text-slate-400 hover:text-rose-500"><I n="trash-2" s={14}/></button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right Panel */}
+        <div className="lg:col-span-2 space-y-4">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 space-y-3">
+            <p className="text-xs font-bold text-slate-500 uppercase">👤 Customer Info</p>
+            <input type="text" placeholder="Customer name (පාරිභෝගිකයාගේ නම)" value={cn} onChange={e=>sCn(e.target.value)} className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring placeholder:text-slate-300"/>
+            <div>
+              <input type="tel" placeholder="Phone — WhatsApp (දු.ක. අංකය)" value={cp} onChange={e=>sCp(e.target.value)} className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring placeholder:text-slate-300"/>
+              {cp&&!isValidPhone(cp)&&<p className="text-[10px] text-amber-500 mt-1 flex items-center gap-1"><I n="alert-circle" s={10}/>Valid phone required (e.g. 0771234567)</p>}
+            </div>
+            <div className="flex gap-2">
+              <div className="relative flex-1"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400">%</span><input type="number" min="0" max="100" value={dp} onChange={e=>sDp(Math.max(0,Math.min(100,parseInt(e.target.value)||0)))} className="w-full pl-8 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="Discount"/></div>
+              <select value={sb} onChange={e=>sSb(e.target.value)} className="px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring appearance-none"><option>Nimal</option><option>Sunil</option><option>Admin</option></select>
+            </div>
+          </div>
+
+          {/* Order Summary */}
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 space-y-2 text-sm">
+            <p className="text-xs font-bold text-slate-500 uppercase mb-2">📋 Order Summary</p>
+            {cart.map(c=><div key={c.pid} className="flex justify-between"><span className="text-slate-500 truncate max-w-[140px]">{c.name} ×{c.qty}</span><span className="font-medium">{fC(c.up*c.qty)}</span></div>)}
+            {cart.length>0&&(
+              <React.Fragment>
+                <div className="border-t pt-2 flex justify-between"><span className="text-slate-500">Subtotal</span><span className="font-semibold">{fC(st)}</span></div>
+                {dp>0&&<div className="flex justify-between text-rose-600"><span>Discount (-{dp}%)</span><span>-{fC(da)}</span></div>}
+                <div className="flex justify-between text-lg font-extrabold pt-2 border-t-2 border-brand-100"><span>Total</span><span className="text-brand-600">{fC(gt)}</span></div>
+              </React.Fragment>
+            )}
+          </div>
+
+          {/* Payment */}
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
+            <p className="text-xs font-bold text-slate-500 uppercase mb-3">💳 Payment Method</p>
+            <div className="grid grid-cols-3 gap-2 mb-3">
+              {[{id:'Cash',l:'Cash',s:'මුදල්',i:'wallet'},{id:'Card',l:'Card',s:'කාඩ්',i:'credit-card'},{id:'Bank Transfer',l:'Bank',s:'බැංකු',i:'landmark'}].map(o=>(
+                <button key={o.id} onClick={()=>{sPm(o.id);if(o.id!=='Cash')sCt('')}} className={`p-3 rounded-xl border-2 text-center active:scale-95 transition-all ${pm===o.id?'border-brand-500 bg-brand-50':'border-slate-200 hover:border-slate-300'}`}>
+                  <I n={o.i} s={18} c={`mx-auto mb-0.5 ${pm===o.id?'text-brand-600':'text-slate-400'}`}/>
+                  <p className={`text-xs font-bold ${pm===o.id?'text-brand-700':'text-slate-600'}`}>{o.l}</p>
+                  <p className="text-[9px] text-slate-400">{o.s}</p>
+                </button>
+              ))}
+            </div>
+            {pm==='Cash'&&cart.length>0&&(
+              <div className="space-y-2 animate-fade-in-fast">
+                <div className="relative"><span className="absolute left-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rs.</span><input type="number" value={ct} onChange={e=>sCt(e.target.value)} className="w-full pl-12 pr-4 py-3 text-lg font-bold bg-slate-50 border border-slate-200 rounded-xl input-ring" placeholder="0"/></div>
+                <div className="flex gap-1.5 flex-wrap">
+                  <button onClick={()=>sCt(String(gt))} className="px-2.5 py-1 text-[10px] font-semibold bg-brand-50 text-brand-600 rounded-lg active:scale-95 border border-brand-200">Exact</button>
+                  {quickAmounts.map(a=><button key={a} onClick={()=>sCt(String(a))} className="px-2.5 py-1 text-[10px] font-semibold bg-slate-100 text-slate-600 rounded-lg active:scale-95">{a>=1000?(a/1000).toFixed(0)+'K':a}</button>)}
+                </div>
+                {Number(ct)>=gt&&Number(ct)>0&&(
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex justify-between animate-scale-in">
+                    <span className="text-sm font-semibold text-emerald-700">🔄 Change</span>
+                    <span className="text-lg font-extrabold text-emerald-600">{fC(Number(ct)-gt)}</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <button onClick={checkout} disabled={!canCO||sub} className="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-base rounded-2xl shadow-xl shadow-emerald-500/25 disabled:opacity-40 active:scale-[.98] transition-transform flex items-center justify-center gap-2">
+            {sub?<React.Fragment><I n="loader" s={20} c="animate-spin"/>Processing...</React.Fragment>:<React.Fragment><I n="check-circle" s={20}/>Complete Sale — {fC(gt)}</React.Fragment>}
+          </button>
+        </div>
+      </div>
+
+      {/* Receipt Modal */}
+      {rec&&(
+        <Modal open={true} onClose={()=>sRec(null)}>
+          <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-5 py-4 flex-shrink-0">
+            <div className="flex items-center gap-3"><div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center"><I n="check-circle" s={22} c="text-white"/></div><div className="flex-1"><h3 className="text-base font-bold text-white">✅ Sale Complete!</h3><p className="text-xs text-emerald-100">{rec.saleId}</p></div><p className="text-xl font-extrabold text-white">{fC(rec.grandTotal)}</p></div>
+          </div>
+          <div className="flex-1 overflow-y-auto p-5">
+            <div className="print-area font-mono text-xs">
+              <div className="text-center border-b-2 border-dashed border-slate-300 pb-3 mb-3"><p className="text-lg font-bold">LIYANAGE ELECTRONICS</p><p className="text-[10px] text-slate-400">No. 45, Main Street, Galle</p></div>
+              <div className="grid grid-cols-2 gap-1 text-[11px] mb-3 pb-3 border-b border-dashed border-slate-300">
+                <div>Sale: <span className="font-bold">{rec.saleId}</span></div><div className="text-right">{fD(rec.date)}</div>
+                {rec.customerName!=='Walk-in'&&<React.Fragment><div>Customer: <span className="font-bold">{rec.customerName}</span></div><div className="text-right">{rec.customerPhone}</div></React.Fragment>}
+                <div>Cashier: {rec.soldBy}</div>
+              </div>
+              <table className="w-full text-[11px] mb-3"><thead><tr className="border-b border-slate-300"><th className="text-left py-1">Item</th><th className="text-center w-8">Qty</th><th className="text-right">Total</th></tr></thead><tbody>
+                {rec.items.map((it,i)=><tr key={i} className="border-b border-dotted border-slate-200"><td className="py-1.5 pr-2 font-medium">{it.productName}</td><td className="py-1.5 text-center">{it.qty}</td><td className="py-1.5 text-right font-semibold">{fC(it.lineTotal)}</td></tr>)}
+              </tbody></table>
+              <div className="border-t-2 border-dashed border-slate-300 pt-2 space-y-1 text-[11px]">
+                {rec.discountPct>0&&<div className="flex justify-between text-rose-600"><span>Discount ({rec.discountPct}%)</span><span>-{fC(rec.discountAmount)}</span></div>}
+                <div className="flex justify-between text-sm font-extrabold pt-1 border-t"><span>TOTAL</span><span>{fC(rec.grandTotal)}</span></div>
+                {rec.paymentMethod==='Cash'&&rec.cashTendered>0&&<React.Fragment><div className="flex justify-between pt-1"><span>Cash</span><span>{fC(rec.cashTendered)}</span></div><div className="flex justify-between font-bold text-emerald-700"><span>Change</span><span>{fC(rec.change)}</span></div></React.Fragment>}
+                {rec.paymentMethod!=='Cash'&&<div className="flex justify-between pt-1"><span>Paid by</span><span className="font-semibold">{rec.paymentMethod}</span></div>}
+              </div>
+              <div className="text-center mt-4 pt-3 border-t border-dashed border-slate-300"><p className="text-[10px] text-slate-500">Thank you! ස්තූතියි!</p><p className="text-[9px] text-slate-300 mt-2">Mahesh Web App Solution</p></div>
+            </div>
+          </div>
+          <div className="flex-shrink-0 px-5 py-3 bg-slate-50 border-t flex flex-col sm:flex-row gap-2 no-print">
+            {rec.customerPhone&&isValidPhone(rec.customerPhone)&&<button onClick={()=>window.open(buildWhatsAppURL(rec.customerPhone,rec),'_blank')} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-500 text-white text-sm font-bold rounded-xl active:scale-95"><I n="message-circle" s={16}/>WhatsApp</button>}
+            <button onClick={()=>window.print()} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-slate-200 text-sm font-semibold rounded-xl active:scale-95"><I n="printer" s={16}/>Print</button>
+            <button onClick={reset} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-600 text-white text-sm font-bold rounded-xl active:scale-95"><I n="zap" s={16}/>New Sale</button>
+          </div>
+        </Modal>
+      )}
+    </React.Fragment>
+  );
+};
+
+// ============================================================
+// SALES HISTORY — NEW TAB
+// ============================================================
+const SalesHistory=({data,loading})=>{
+  const [q,sQ]=useState('');
+  const [fp,sFp]=useState('All');
+  const [viewS,setViewS]=useState(null);
+
+  const grouped=useMemo(()=>{
+    if(!data?.sales) return [];
+    const g={};
+    data.sales.forEach(s=>{
+      if(!g[s.SaleID]) g[s.SaleID]={id:s.SaleID,date:s.Date,cust:s.CustomerName,phone:s.CustomerPhone,pay:s.PaymentMethod,soldBy:s.SoldBy,items:[],total:0,discount:Number(s.DiscountPct)||0};
+      g[s.SaleID].items.push(s);
+      g[s.SaleID].total+=Number(s.TotalAmount)||0;
+    });
+    return Object.values(g).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  },[data]);
+
+  const filtered=useMemo(()=>{
+    return grouped.filter(s=>{
+      const m=!q||s.cust.toLowerCase().includes(q.toLowerCase())||s.id.toLowerCase().includes(q.toLowerCase())||s.items.some(i=>i.ProductName.toLowerCase().includes(q.toLowerCase()));
+      return m&&(fp==='All'||s.pay===fp);
+    });
+  },[grouped,q,fp]);
+
+  const totalRev=filtered.reduce((s,x)=>s+x.total,0);
+  const cashCount=grouped.filter(s=>s.pay==='Cash').length;
+  const cardCount=grouped.filter(s=>s.pay==='Card').length;
+
+  if(loading) return <SkT/>;
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
+        <SC title="Total Sales" si="සමස්ත විකුණුම්" value={grouped.length} icon="shopping-cart" grad="from-brand-400 to-brand-600"/>
+        <SC title="Revenue" si="මුළු ආදායම" value={fC(grouped.reduce((s,x)=>s+x.total,0))} icon="dollar-sign" grad="from-emerald-400 to-emerald-600" delay={80}/>
+        <SC title="Cash Sales" si="මුදල් විකුණුම්" value={cashCount} icon="wallet" grad="from-amber-400 to-amber-600" delay={160}/>
+        <SC title="Card Sales" si="කාඩ් විකුණුම්" value={cardCount} icon="credit-card" grad="from-violet-400 to-violet-600" delay={240}/>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
+            <div className="relative w-full sm:w-72">
+              <I n="search" s={15} c="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
+              <input type="text" placeholder="Search sales..." value={q} onChange={e=>sQ(e.target.value)} className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring placeholder:text-slate-300"/>
+            </div>
+            <div className="flex gap-1.5">
+              {['All','Cash','Card','Bank Transfer'].map(p=><button key={p} onClick={()=>sFp(p)} className={`px-2.5 py-1 text-[10px] font-semibold rounded-lg active:scale-95 ${fp===p?'bg-brand-600 text-white':'bg-slate-100 text-slate-500'}`}>{p==='Bank Transfer'?'Bank':p}</button>)}
+            </div>
+          </div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[600px]">
+            <thead><tr className="bg-slate-50/80">
+              <th className="text-left px-5 py-3 text-[10px] font-semibold text-slate-500 uppercase">Sale ID</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Date</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Customer</th>
+              <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Items</th>
+              <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Payment</th>
+              <th className="text-right px-5 py-3 text-[10px] font-semibold text-slate-500 uppercase">Amount</th>
+            </tr></thead>
+            <tbody>
+              {filtered.length===0?<tr><td colSpan="6" className="px-6 py-14 text-center text-sm text-slate-400">No sales found</td></tr>:
+              filtered.map(s=>(
+                <tr key={s.id} className="rh border-b border-slate-50 cursor-pointer" onClick={()=>setViewS(s)}>
+                  <td className="px-5 py-3"><span className="text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">{s.id}</span></td>
+                  <td className="px-4 py-3 text-xs text-slate-500">{fDT(s.date)}</td>
+                  <td className="px-4 py-3"><p className="text-sm font-medium text-slate-700">{s.cust}</p><p className="text-[10px] text-slate-400">{s.phone}</p></td>
+                  <td className="px-4 py-3 text-center"><span className="text-sm font-semibold text-slate-700">{s.items.length}</span></td>
+                  <td className="px-4 py-3 text-center"><span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${s.pay==='Cash'?'text-emerald-700 bg-emerald-50 border-emerald-200':s.pay==='Card'?'text-violet-700 bg-violet-50 border-violet-200':'text-blue-700 bg-blue-50 border-blue-200'}`}>{s.pay}</span></td>
+                  <td className="px-5 py-3 text-right text-sm font-bold text-slate-800">{fC(s.total)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="px-5 py-2 bg-slate-50/50 border-t border-slate-100 flex justify-between"><p className="text-[10px] text-slate-400">{filtered.length} sales</p><p className="text-[10px] font-semibold text-slate-500">Total: {fC(totalRev)}</p></div>
+      </div>
+
+      {/* Sale Detail Modal */}
+      <Modal open={!!viewS} onClose={()=>setViewS(null)}>
+        {viewS&&(
+          <React.Fragment>
+            <div className="bg-gradient-to-r from-brand-600 to-violet-600 px-5 py-4 flex items-center justify-between flex-shrink-0">
+              <div><h3 className="text-base font-bold text-white">Sale {viewS.id}</h3><p className="text-xs text-brand-200">{fDT(viewS.date)}</p></div>
+              <button onClick={()=>setViewS(null)} className="p-2 rounded-lg hover:bg-white/10 text-white"><I n="x" s={18}/></button>
+            </div>
+            <div className="p-5 space-y-3 overflow-y-auto flex-1">
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="p-3 bg-slate-50 rounded-xl"><p className="text-[10px] text-slate-400 uppercase">Customer</p><p className="font-semibold text-slate-800">{viewS.cust}</p><p className="text-xs text-slate-500">{viewS.phone}</p></div>
+                <div className="p-3 bg-slate-50 rounded-xl"><p className="text-[10px] text-slate-400 uppercase">Payment</p><p className="font-semibold text-slate-800">{viewS.pay}</p><p className="text-xs text-slate-500">By: {viewS.soldBy}</p></div>
+              </div>
+              <div className="border rounded-xl overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead><tr className="bg-slate-50"><th className="text-left px-4 py-2 text-[10px] text-slate-500">Product</th><th className="text-center px-2 py-2 text-[10px] text-slate-500">Qty</th><th className="text-right px-4 py-2 text-[10px] text-slate-500">Amount</th></tr></thead>
+                  <tbody>{viewS.items.map((it,i)=>(
+                    <tr key={i} className="border-t border-slate-100"><td className="px-4 py-2.5"><p className="font-medium text-slate-700">{it.ProductName}</p><p className="text-[10px] text-slate-400">{it.ProductID} • {fC(it.UnitPrice)}/ea</p></td><td className="px-2 py-2.5 text-center font-bold">{it.Qty}</td><td className="px-4 py-2.5 text-right font-bold">{fC(it.TotalAmount)}</td></tr>
+                  ))}</tbody>
+                </table>
+              </div>
+              {viewS.discount>0&&<div className="flex justify-between text-sm text-rose-600"><span>Discount ({viewS.discount}%)</span><span>Applied</span></div>}
+              <div className="flex justify-between text-lg font-extrabold pt-2 border-t-2"><span>Total</span><span className="text-brand-600">{fC(viewS.total)}</span></div>
+            </div>
+          </React.Fragment>
+        )}
+      </Modal>
+    </div>
+  );
+};
+
+// ============================================================
+// RETURNS
+// ============================================================
+const Returns=({data,loading,toast,setData})=>{
+  const [si,sSi]=useState('');
+  const [lk,sLk]=useState(null);
+  const [le,sLe]=useState('');
+  const [sp,sSp]=useState('');
+  const [rq,sRq]=useState(1);
+  const [rs,sRs]=useState(RET_REASONS[0]);
+  const [pb,sPb]=useState('Nimal');
+  const [sub,sSub]=useState(false);
+
+  const doL=()=>{
+    if(!si.trim()){sLe('Sale ID enter කරන්න');return}
+    sLe('');sLk(null);sSp('');sRq(1);
+    const id=si.trim().toUpperCase();
+    const lines=(data?.sales||[]).filter(s=>s.SaleID===id);
+    if(!lines.length){sLe(`"${id}" — සොයාගත නොහැක`);return}
+    const items=lines.map(sl=>{const ar=(data?.returns||[]).filter(r=>r.SaleID===id&&r.ProductID===sl.ProductID&&r.Status==='Completed').reduce((s,r)=>s+(Number(r.Qty)||0),0);return{...sl,ar,mr:Number(sl.Qty)-ar}});
+    sLk({id,cust:lines[0].CustomerName,phone:lines[0].CustomerPhone,date:lines[0].Date,items});
+  };
+
+  const selI=useMemo(()=>lk?.items?.find(i=>i.ProductID===sp),[lk,sp]);
+  const rAmt=useMemo(()=>{if(!selI)return 0;return Math.round(Number(selI.UnitPrice)*(1-(Number(selI.DiscountPct)||0)/100))*rq},[selI,rq]);
+
+  const hSub=async()=>{
+    if(!selI||rq<=0||rq>selI.mr) return;
+    sSub(true);
+    try{
+      await new Promise(r=>setTimeout(r,800));
+      const rns=(data.returns||[]).map(r=>parseInt(String(r.ReturnID).replace(/\D/g,''))||0);
+      const nxt=rns.length>0?Math.max(...rns)+1:1;
+      const rid='R'+String(nxt).padStart(4,'0');
+      setData(prev=>{
+        const prods=(prev.products||[]).map(p=>{if(p.ProductID===sp){const nq=p.StockQty+rq;return{...p,StockQty:nq,Status:nq<=p.MinStockLevel?'Low Stock':'Active'}}return p});
+        const sales=(prev.sales||[]).map(s=>{if(s.SaleID===lk.id&&s.ProductID===sp){const nt=(selI.ar||0)+rq;return{...s,ReturnStatus:nt>=Number(s.Qty)?'Returned':'Partial Return'}}return s});
+        return{...prev,returns:[...(prev.returns||[]),{ReturnID:rid,Date:new Date().toISOString(),SaleID:lk.id,ProductID:sp,ProductName:selI.ProductName,Qty:rq,Reason:rs,RefundAmount:rAmt,ProcessedBy:pb,Status:'Completed'}],products:prods,sales};
+      });
+      toast(`${rid} — Refund: ${fC(rAmt)}`,'success');
+      sSi('');sLk(null);sSp('');
+    }catch(e){toast('Return process error','error')}
+    sSub(false);
+  };
+
+  if(loading) return <SkT/>;
+  const hist=[...(data.returns||[])].sort((a,b)=>new Date(b.Date)-new Date(a.Date));
+  const totalSales=data.sales?[...new Set(data.sales.map(s=>s.SaleID))].length:0;
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <SC title="Returns" si="ආපසු" value={data.returns?.length||0} icon="rotate-ccw" grad="from-amber-400 to-orange-500"/>
+        <SC title="Refunded" si="ආපසු මුදල" value={fC((data.returns||[]).reduce((s,r)=>s+(Number(r.RefundAmount)||0),0))} icon="dollar-sign" grad="from-rose-400 to-rose-600" delay={80}/>
+        <SC title="Rate" si="අනුපාතය" value={totalSales>0?((data.returns?.length||0)/totalSales*100).toFixed(1)+'%':'0%'} icon="bar-chart" grad="from-brand-400 to-brand-600" delay={160}/>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
+        <div className="xl:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden animate-slide-left">
+          <div className="px-5 py-4 bg-gradient-to-r from-amber-500 to-orange-500"><p className="text-sm font-bold text-white">🔄 Process Return (ආපසු සැකසීම)</p></div>
+          <div className="p-5 space-y-4">
+            <div className="flex gap-2"><input type="text" placeholder="Sale ID (e.g. S0003)" value={si} onChange={e=>{sSi(e.target.value);sLe('')}} onKeyDown={e=>{if(e.key==='Enter')doL()}} className="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl font-mono input-ring placeholder:text-slate-300"/><button onClick={doL} className="px-4 py-2.5 bg-brand-600 text-white text-sm font-bold rounded-xl active:scale-95"><I n="search" s={14}/></button></div>
+            {le&&<p className="text-xs text-rose-500 flex items-center gap-1"><I n="alert-circle" s={14}/>{le}</p>}
+            {lk&&(
+              <div className="animate-fade-in space-y-4">
+                <div className="p-3 bg-brand-50 rounded-xl border border-brand-100"><span className="text-xs font-bold text-brand-600">{lk.id}</span><span className="text-xs text-slate-500 ml-2">{fD(lk.date)}</span><p className="text-sm font-semibold text-slate-800 mt-1">{lk.cust}</p></div>
+                <select value={sp} onChange={e=>{sSp(e.target.value);sRq(1)}} className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring appearance-none"><option value="">— Product —</option>{lk.items.filter(i=>i.mr>0).map(i=><option key={i.ProductID} value={i.ProductID}>{i.ProductName} (Max:{i.mr})</option>)}</select>
+                {selI&&(
+                  <React.Fragment>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div><label className="text-[10px] text-slate-500 font-semibold">Qty</label><input type="number" min="1" max={selI.mr} value={rq} onChange={e=>sRq(Math.max(1,Math.min(selI.mr,parseInt(e.target.value)||1)))} className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring mt-1"/></div>
+                      <div><label className="text-[10px] text-slate-500 font-semibold">By</label><select value={pb} onChange={e=>sPb(e.target.value)} className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring appearance-none mt-1"><option>Nimal</option><option>Sunil</option><option>Admin</option></select></div>
+                    </div>
+                    <select value={rs} onChange={e=>sRs(e.target.value)} className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring appearance-none">{RET_REASONS.map(r=><option key={r}>{r}</option>)}</select>
+                    <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex justify-between animate-scale-in"><span className="text-sm font-semibold text-emerald-700">Refund Amount</span><span className="text-lg font-extrabold text-emerald-600">{fC(rAmt)}</span></div>
+                    <button onClick={hSub} disabled={sub} className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-sm rounded-xl disabled:opacity-50 active:scale-[.98] flex items-center justify-center gap-2">
+                      {sub?<React.Fragment><I n="loader" s={16} c="animate-spin"/>Processing...</React.Fragment>:<React.Fragment><I n="rotate-ccw" s={16}/>Process Return</React.Fragment>}
+                    </button>
+                  </React.Fragment>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="xl:col-span-3 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-100"><h3 className="text-sm font-bold text-slate-800">📋 Return History (ආපසු ඉතිහාසය)</h3></div>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[500px]">
+              <thead><tr className="bg-slate-50/80">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">ID</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Product</th>
+                <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Qty</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Refund</th>
+                <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Status</th>
+              </tr></thead>
+              <tbody>
+                {hist.length===0?<tr><td colSpan="5" className="px-6 py-12 text-center text-sm text-slate-400">No returns yet</td></tr>:
+                hist.map(r=>(
+                  <tr key={r.ReturnID} className="rh border-b border-slate-50">
+                    <td className="px-4 py-3"><span className="text-xs font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded">{r.ReturnID}</span><br/><span className="text-[10px] text-slate-400">{r.SaleID} • {fD(r.Date)}</span></td>
+                    <td className="px-4 py-3"><p className="text-sm text-slate-700 truncate max-w-[140px]">{r.ProductName}</p><p className="text-[10px] text-slate-400">{r.Reason?.substring(0,25)}</p></td>
+                    <td className="px-4 py-3 text-center text-sm font-bold">{r.Qty}</td>
+                    <td className="px-4 py-3 text-right text-sm font-bold text-rose-600">{fC(r.RefundAmount)}</td>
+                    <td className="px-4 py-3 text-center"><span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Done</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============================================================
+// WARRANTY
+// ============================================================
+const Warranty=({data,loading})=>{
+  const [q,sQ]=useState('');
+  const [sf,sSf]=useState('All');
+
+  const recs=useMemo(()=>{
+    if(!data?.sales||!data?.products) return [];
+    const now=new Date();
+    const seen=new Set();
+    return data.sales.map((sale,saleIdx)=>{
+      const prod=data.products.find(p=>p.ProductID===sale.ProductID);
+      if(!prod||!Number(prod.WarrantyMonths)) return null;
+      const key=`${sale.SaleID}_${sale.ProductID}`;
+      if(seen.has(key)) return null;
+      seen.add(key);
+      const sd=new Date(sale.Date);const ex=new Date(sd);ex.setMonth(ex.getMonth()+Number(prod.WarrantyMonths));
+      const dl=Math.ceil((ex-now)/864e5);const td=Math.ceil((ex-sd)/864e5);const pct=td>0?Math.max(0,Math.min(100,(dl/td)*100)):0;
+      const isRet=(data.returns||[]).some(r=>r.SaleID===sale.SaleID&&r.ProductID===sale.ProductID&&r.Status==='Completed');
+      const status=isRet?'Returned':dl<=0?'Expired':dl<=30?'Expiring Soon':'Active';
+      return{key:`${key}_${saleIdx}`,saleId:sale.SaleID,pid:sale.ProductID,name:sale.ProductName,brand:prod.Brand,cust:sale.CustomerName,phone:sale.CustomerPhone,sd:sale.Date,ex:ex.toISOString(),wm:prod.WarrantyMonths,dl:Math.max(0,dl),pct,status};
+    }).filter(Boolean);
+  },[data]);
+
+  const filtered=useMemo(()=>recs.filter(w=>{const ms=!q||w.name.toLowerCase().includes(q.toLowerCase())||w.cust.toLowerCase().includes(q.toLowerCase())||w.saleId.toLowerCase().includes(q.toLowerCase())||(w.phone||'').includes(q);return ms&&(sf==='All'||w.status===sf)}),[recs,q,sf]);
+  const cnt=useMemo(()=>{const c={Active:0,'Expiring Soon':0,Expired:0,Returned:0};recs.forEach(w=>{if(c[w.status]!==undefined)c[w.status]++});return c},[recs]);
+
+  if(loading) return <div className="space-y-4"><div className="grid grid-cols-2 xl:grid-cols-4 gap-3"><SkC/><SkC/><SkC/><SkC/></div><SkT/></div>;
+
+  const badge=s=>{
+    const st={'Active':'text-emerald-700 bg-emerald-50 border-emerald-200','Expiring Soon':'text-amber-700 bg-amber-50 border-amber-200','Expired':'text-rose-700 bg-rose-50 border-rose-200','Returned':'text-slate-500 bg-slate-100 border-slate-200'};
+    const dt={'Active':'bg-emerald-500','Expiring Soon':'bg-amber-500 animate-pulse-dot','Expired':'bg-rose-500','Returned':'bg-slate-400'};
+    return <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${st[s]||st.Active}`}><span className={`w-1.5 h-1.5 rounded-full ${dt[s]||dt.Active}`}/>{s}</span>;
+  };
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
+        <SC title="Active" si="ක්‍රියාකාරී" value={cnt.Active} icon="shield-check" grad="from-emerald-400 to-emerald-600"/>
+        <SC title="Expiring" si="අවසන් වෙමින්" value={cnt['Expiring Soon']} icon="alert-triangle" grad="from-amber-400 to-amber-500" delay={80}/>
+        <SC title="Expired" si="කල් ඉකුත්" value={cnt.Expired} icon="alert-circle" grad="from-rose-400 to-rose-600" delay={160}/>
+        <SC title="Total" si="සියල්ල" value={recs.length} icon="clipboard" grad="from-brand-400 to-brand-600" delay={240}/>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
+            <div className="relative w-full sm:w-72"><I n="search" s={15} c="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input type="text" placeholder="Search warranty..." value={q} onChange={e=>sQ(e.target.value)} className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl input-ring placeholder:text-slate-300"/></div>
+            <div className="flex gap-1.5 flex-wrap">
+              {['All','Active','Expiring Soon','Expired','Returned'].map(s=><button key={s} onClick={()=>sSf(s)} className={`px-2 py-1 text-[10px] font-semibold rounded-lg active:scale-95 ${sf===s?'bg-brand-600 text-white':'bg-slate-100 text-slate-500'}`}>{s}{s!=='All'&&<span className="ml-0.5 opacity-70">({cnt[s]||0})</span>}</button>)}
+            </div>
+          </div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[600px]">
+            <thead><tr className="bg-slate-50/80">
+              <th className="text-left px-5 py-3 text-[10px] font-semibold text-slate-500 uppercase">Product</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Customer</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Expires</th>
+              <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Left</th>
+              <th className="text-center px-4 py-3 text-[10px] font-semibold text-slate-500 uppercase">Status</th>
+            </tr></thead>
+            <tbody>
+              {filtered.length===0?<tr><td colSpan="5" className="px-6 py-14 text-center text-sm text-slate-400">No records found</td></tr>:
+              filtered.map(w=>(
+                <tr key={w.key} className="rh border-b border-slate-50">
+                  <td className="px-5 py-3.5"><p className="text-sm font-semibold text-slate-800 truncate max-w-[170px]">{w.name}</p><span className="text-[10px] text-brand-500 font-mono bg-brand-50 px-1.5 py-0.5 rounded">{w.saleId}</span><span className="text-[10px] text-slate-300 ml-1">{w.wm}mo</span></td>
+                  <td className="px-4 py-3.5"><p className="text-sm text-slate-700">{w.cust}</p><p className="text-[10px] text-slate-400">{w.phone}</p></td>
+                  <td className="px-4 py-3.5 text-xs text-slate-500">{fD(w.ex)}</td>
+                  <td className="px-4 py-3.5"><div className="flex flex-col items-center"><span className={`text-xs font-bold ${w.status==='Active'?'text-emerald-600':w.status==='Expiring Soon'?'text-amber-600':'text-slate-400'}`}>{w.status==='Expired'||w.status==='Returned'?'—':`${w.dl}d`}</span><div className="w-16 h-1.5 bg-slate-100 rounded-full mt-1 overflow-hidden"><div className={`h-full rounded-full transition-all ${w.status==='Active'?'bg-emerald-500':w.status==='Expiring Soon'?'bg-amber-500':'bg-rose-500'}`} style={{width:`${w.pct}%`}}/></div></div></td>
+                  <td className="px-4 py-3.5 text-center">{badge(w.status)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {filtered.length>0&&<div className="px-4 py-2 bg-slate-50/50 border-t border-slate-100"><p className="text-[10px] text-slate-400">{filtered.length} of {recs.length}</p></div>}
+      </div>
+    </div>
+  );
+};
+
+// ============================================================
+// APP
+// ============================================================
+const App=()=>{
+  const [tab,setTab]=useState('dashboard');
+  const [open,setOpen]=useState(false);
+  const [data,setData]=useState(null);
+  const [loading,setLoading]=useState(true);
+  const [toasts,setToasts]=useState([]);
+  const [cached,setCached]=useState(false);
+  const dataLoadedRef=useRef(false);
+
+  const toast=useCallback((msg,type='success')=>{const id=Date.now()+Math.random();setToasts(p=>[...p,{id,message:msg,type}]);setTimeout(()=>setToasts(p=>p.filter(t=>t.id!==id)),4500)},[]);
+  const rmToast=useCallback(id=>setToasts(p=>p.filter(t=>t.id!==id)),[]);
+
+  useEffect(()=>{if(data){saveToLS(data);dataLoadedRef.current=true}},[data]);
+
+  const lowCount=useMemo(()=>(data?.products||[]).filter(p=>p.Status==='Low Stock'||p.StockQty<=p.MinStockLevel).length,[data]);
+
+  const fetchData=useCallback(async()=>{
+    setLoading(true);setCached(false);
+    const lsData=loadFromLS();
+    if(lsData&&!dataLoadedRef.current){setData(lsData);setCached(true);setLoading(false)}
+    try{
+      if(API_URL&&API_URL!=='YOUR_DEPLOYED_APPS_SCRIPT_URL_HERE'){
+        const r=await fetch(API_URL);const j=await r.json();
+        if(j.success&&j.data){setData(j.data);setCached(false);setLoading(false);return}
+      }
+    }catch(e){console.warn('API unavailable:',e.message)}
+    if(!dataLoadedRef.current&&!lsData){setTimeout(()=>{setData(MOCK);setLoading(false)},600)}else{setLoading(false)}
+  },[]);
+
+  useEffect(()=>{fetchData()},[fetchData]);
+
+  return (
+    <div className="min-h-screen">
+      <Sidebar tab={tab} setTab={setTab} open={open} setOpen={setOpen} lowCount={lowCount}/>
+      <div className="lg:ml-[280px] min-h-screen flex flex-col">
+        <Header tab={tab} setOpen={setOpen} onRefresh={fetchData} loading={loading} cached={cached}/>
+        <main className="flex-1 p-3 sm:p-6 lg:p-8">
+          {tab==='dashboard'&&<Dashboard data={data} loading={loading}/>}
+          {tab==='products'&&<Products data={data} loading={loading} toast={toast} setData={setData}/>}
+          {tab==='new-sale'&&<NewSale data={data} loading={loading} toast={toast} setData={setData}/>}
+          {tab==='sales-history'&&<SalesHistory data={data} loading={loading}/>}
+          {tab==='returns'&&<Returns data={data} loading={loading} toast={toast} setData={setData}/>}
+          {tab==='warranty'&&<Warranty data={data} loading={loading}/>}
+        </main>
+        <footer className="px-3 sm:px-8 py-3 border-t border-slate-200 bg-white/60 backdrop-blur-sm">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-1">
+            <p className="text-[10px] text-slate-400">&copy; {new Date().getFullYear()} <span className="font-semibold text-slate-500">Mahesh Web App Solution</span></p>
+            <p className="text-[9px] text-slate-300">Liyanage Electronics (ලියනගේ ඉලෙක්ට්‍රොනික්ස්)</p>
+          </div>
+        </footer>
+      </div>
+      <Toasts toasts={toasts} rm={rmToast}/>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
